@@ -17,7 +17,7 @@ Sebelum menjalankan aplikasi, pastikan sistem Anda memenuhi persyaratan berikut:
 
 1. **Clone repository ini** (atau unduh source code ke komputer Anda):
    ```bash
-   git clone <URL_GITHUB_ANDA>
+   git clone https://github.com/dadang-gmbtech/estimasi_kecepatan.git
    cd estimasi_kecepatan
    ```
 
