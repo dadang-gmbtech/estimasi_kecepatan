@@ -15,6 +15,23 @@ pip install -r requirements.txt
 python app.py --input video.mp4
 ```
 
+### Referensi Kecepatan Relatif
+
+Jika ingin menggunakan satu kendaraan sebagai referensi kecepatan, tersedia dua cara:
+
+1. Command-line:
+```bash
+python speed_ref.py --input video.mp4 --ref-id 3 --ref-speed 60.0
+```
+2. GUI Streamlit:
+```bash
+streamlit run app_gui.py
+```
+
+- `--ref-id` adalah ID kendaraan referensi dari hasil pelacakan.
+- `--ref-speed` adalah kecepatan nyata kendaraan referensi dalam `km/h`.
+- `app_gui.py` menyediakan antarmuka untuk memilih kendaraan referensi, memasukkan kecepatan nyata, dan melihat hasil di browser.
+
 ### Model
 
 Letakkan `yolo11n.pt` di folder proyek atau ubah path di konfigurasi.
