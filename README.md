@@ -1,7 +1,9 @@
 # 🚗 Interactive Vehicle Speed Estimator (Dynamic Depth-Scaling)
 
 Aplikasi ini adalah sistem estimasi kecepatan kendaraan berbasis video menggunakan deteksi objek (YOLO) dan pelacakan (ByteTrack). Aplikasi ini menggunakan profil pergerakan kendaraan referensi untuk mengatasi masalah distorsi perspektif. Kecepatan dihitung menggunakan *Dynamic Depth-Scaling* sehingga hasilnya konsisten dari jauh maupun dekat kamera.
-
+** Presentasi di link berikut https://docs.google.com/presentation/d/1muC7aVWXWbMR9GDpA9D91K_KCkkHPfvg/edit?usp=sharing&ouid=115427172697597167206&rtpof=true&sd=true
+** Laporan di link Berikut https://docs.google.com/document/d/15FYuIHhWDsdYtKWhhgd1_p5hbbzc7ZFX/edit?usp=sharing&ouid=115427172697597167206&rtpof=true&sd=true
+** Video dengan Ground Truth 
 ## 📋 Prasyarat (Prerequisites)
 
 Sebelum menjalankan aplikasi, pastikan sistem Anda memenuhi persyaratan berikut:
