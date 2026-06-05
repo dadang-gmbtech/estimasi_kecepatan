@@ -55,7 +55,7 @@ Aplikasi ini dibangun menggunakan antarmuka grafis interaktif berbasis **Streaml
 
 1. **Upload Video**: Unggah file video (.mp4, .mov, atau .avi) yang berisi rekaman pergerakan kendaraan.
 2. **Kalibrasi Referensi Dinamis**:
-   - Pilih **satu kendaraan** di video yang terlihat bergerak secara stabil dari jarak jauh hingga dekat kamera dengan durasi waktu yang cukup.
+   - Pilih **satu kendaraan** di video yang terlihat bergerak secara stabil dari jarak jauh hingga dekat kamera dengan durasi waktu yang cukup "contoh melakukan Croping mobil suzuki jimmy" .
    - Gunakan alat *drawing* (berbentuk kotak) yang ada di layar untuk menggambar *bounding box* (kotak) pada kendaraan tersebut.
    - Masukkan **Kecepatan Aktual** dari kendaraan referensi tersebut dalam satuan km/jam (misalnya: 60 km/jam).
 3. **Mulai Proses**: Klik tombol `▶ Mulai Proses`. Aplikasi akan:
