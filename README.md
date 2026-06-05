@@ -1,117 +1,63 @@
+# 🚗 Interactive Vehicle Speed Estimator (Dynamic Depth-Scaling)
 
+Aplikasi ini adalah sistem estimasi kecepatan kendaraan berbasis video menggunakan deteksi objek (YOLO) dan pelacakan (ByteTrack). Aplikasi ini menggunakan profil pergerakan kendaraan referensi untuk mengatasi masalah distorsi perspektif. Kecepatan dihitung menggunakan *Dynamic Depth-Scaling* sehingga hasilnya konsisten dari jauh maupun dekat kamera.
 
-#Deskripsi singkat proyek ini: estimasi kecepatan kendaraan dari video atau gambar.
+## 📋 Prasyarat (Prerequisites)
 
+Sebelum menjalankan aplikasi, pastikan sistem Anda memenuhi persyaratan berikut:
+- **Sistem Operasi**: Windows 10/11, macOS, atau Linux.
+- **Python**: Versi 3.8 hingga 3.11 (disarankan Python 3.10).
+- **Hardware**: 
+  - CPU (bisa berjalan namun pemrosesan video mungkin lebih lambat).
+  - GPU NVIDIA dengan dukungan CUDA sangat disarankan untuk inference YOLO yang jauh lebih cepat.
 
-### Installation
+## 🛠 Instalasi
 
-```bash
-pip install -r requirements.txt
-```
+1. **Clone repository ini** (atau unduh source code ke komputer Anda):
+   ```bash
+   git clone <URL_GITHUB_ANDA>
+   cd estimasi_kecepatan
+   ```
 
-### Usage
+2. **Buat Virtual Environment** (Opsional tapi sangat disarankan agar library tidak bentrok):
+   ```bash
+   # Pengguna Windows
+   python -m venv venv
+   .\venv\Scripts\activate
 
-```bash
-python app.py --input video.mp4
-```
+   # Pengguna macOS/Linux
+   python3 -m venv venv
+   source venv/bin/activate
+   ```
 
-### Referensi Kecepatan Relatif
+3. **Install Dependensi**:
+   Instal semua library yang dibutuhkan menggunakan `requirements.txt`:
+   ```bash
+   pip install -r requirements.txt
+   ```
+   *Catatan: Proses ini akan mengunduh library seperti `ultralytics`, `opencv-python`, dan `streamlit`.*
+   *Saat pertama kali dijalankan, aplikasi juga mungkin akan mengunduh model bobot `yolo11s.pt` secara otomatis.*
 
-Jika ingin menggunakan satu kendaraan sebagai referensi kecepatan, tersedia dua cara:
+## 🚀 Cara Menjalankan Aplikasi
 
-1. Command-line:
-```bash
-python speed_ref.py --input video.mp4 --ref-id 3 --ref-speed 60.0
-```
-2. GUI Streamlit:
-```bash
-streamlit run app_gui.py
-```
+Aplikasi ini dibangun menggunakan antarmuka grafis interaktif berbasis **Streamlit**.
 
-- `--ref-id` adalah ID kendaraan referensi dari hasil pelacakan.
-- `--ref-speed` adalah kecepatan nyata kendaraan referensi dalam `km/h`.
-- `app_gui.py` menyediakan antarmuka untuk memilih kendaraan referensi, memasukkan kecepatan nyata, dan melihat hasil di browser.
+1. Buka Terminal / Command Prompt di folder project (pastikan virtual environment sudah aktif).
+2. Jalankan perintah berikut:
+   ```bash
+   streamlit run app_interactive.py
+   ```
+3. Browser Anda akan secara otomatis membuka halaman aplikasi (biasanya di `http://localhost:8501`). Jika tidak terbuka otomatis, Anda bisa menyalin link yang muncul di terminal dan membukanya di browser.
 
-### Model
+## 💡 Panduan Penggunaan Aplikasi (UI)
 
-Letakkan `yolo11n.pt` di folder proyek atau ubah path di konfigurasi.
-
----
-
-Jika mau, saya bisa menyesuaikan README ini dengan deskripsi proyek Anda, menambahkan contoh perintah lengkap, atau menaruh badge dan `LICENSE`.
-
-## System requirements & Preparation
-
-- **Operating system:** Windows 10/11, Ubuntu 18.04+ or macOS 10.15+. Linux is recommended for GPU workflows.
-- **Python:** 3.8 — 3.11 (3.10 recommended). Gunakan virtual environment (`venv`/`conda`).
-- **Hardware:**
-  - CPU-only: 4+ cores, 8+ GB RAM (untuk pengujian kecil).
-  - GPU (opsional, untuk inference cepat): NVIDIA GPU dengan CUDA 11+ jika memakai GPU-accelerated model.
-- **Disk / files:** Pastikan ruang cukup untuk model dan dataset. Model `yolo11n.pt` biasanya beberapa puluhan MB — cek ukurannya.
-
-### Dependencies
-
-1. Pastikan `requirements.txt` berisi semua dependensi (contoh: `torch`, `opencv-python`, `numpy`, `ultralytics` / `yolov5` bila dipakai).
-2. Instal di virtualenv:
-
-```bash
-python -m venv .venv
-.\.venv\Scripts\activate    # Windows PowerShell
-source .venv/bin/activate    # macOS / Linux
-pip install -r requirements.txt
-```
-
-atau dengan `conda`:
-
-```bash
-conda create -n estimasi python=3.10
-conda activate estimasi
-pip install -r requirements.txt
-```
-
-### Environment / Config
-
-- Jika ada variabel konfigurasi (mis. path model, device), letakkan di file `.env` atau argumen baris perintah. Contoh env:
-
-```
-MODEL_PATH=yolo11n.pt
-DEVICE=cuda
-```
-
-- Di `app.py` pastikan parameter input/output mudah diubah lewat argumen.
-
-### Apa yang perlu di-upload ke GitHub
-
-- `app.py`, `requirements.txt`, `README.md`, dan skrip/utility yang diperlukan.
-- File model besar: jangan commit file model besar langsung ke Git jika ukurannya besar (>50 MB). Opsi yang direkomendasikan:
-  - Gunakan GitHub Releases untuk menyertakan file model.
-  - Atau gunakan Git LFS (`git lfs install` lalu `git lfs track "*.pt"`).
-  - Atau simpan di cloud storage (Google Drive / S3) dan berikan link di README.
-- Contoh file yang boleh di-commit: `yolo11n.pt` hanya jika ukurannya kecil; jika besar, beri instruksi download di README.
-- Tambahkan `.gitignore` untuk menghindari commit file environment dan dataset besar, contohnya:
-
-```
-.venv/
-__pycache__/
-*.pyc
-data/
-*.pt  # gunakan LFS jika ingin track model
-```
-
-### Cara mengecek setelah persiapan
-
-1. Buat virtualenv dan instal dependensi.
-2. Jalankan contoh singkat:
-
-```bash
-python app.py --input sample_video.mp4
-```
-
-3. Pastikan output muncul dan tidak ada error import.
-
----
-
-Jika Anda ingin, saya bisa:
-- Menambahkan contoh environment `.env` dan file `.gitignore` ke repo.
-- Menambahkan instruksi untuk meng-upload model menggunakan Releases atau Git LFS.
-
+1. **Upload Video**: Unggah file video (.mp4, .mov, atau .avi) yang berisi rekaman pergerakan kendaraan.
+2. **Kalibrasi Referensi Dinamis**:
+   - Pilih **satu kendaraan** di video yang terlihat bergerak secara stabil dari jarak jauh hingga dekat kamera dengan durasi waktu yang cukup.
+   - Gunakan alat *drawing* (berbentuk kotak) yang ada di layar untuk menggambar *bounding box* (kotak) pada kendaraan tersebut.
+   - Masukkan **Kecepatan Aktual** dari kendaraan referensi tersebut dalam satuan km/jam (misalnya: 60 km/jam).
+3. **Mulai Proses**: Klik tombol `▶ Mulai Proses`. Aplikasi akan:
+   - Menjalankan pelacakan (tracking) menggunakan model YOLO.
+   - Membangun model matematika *Depth-Scaling* berbasis pergerakan kendaraan referensi yang Anda pilih untuk mengkalibrasi jarak piksel terhadap jarak nyata.
+   - Mengestimasi kecepatan seluruh kendaraan lain secara dinamis.
+4. **Hasil Estimasi**: Setelah proses selesai, Anda dapat memutar video hasil yang sudah dilengkapi anotasi (kotak pelacakan & kecepatan), melihat grafik statistik kecepatan, distribusi histogram, dan mengunduh data mentah riwayat kecepatan semua kendaraan dalam format CSV.
