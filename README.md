@@ -1,8 +1,8 @@
 # 🚗 Interactive Vehicle Speed Estimator (Dynamic Depth-Scaling)
 
-Aplikasi ini adalah sistem estimasi kecepatan kendaraan berbasis video menggunakan deteksi objek (YOLO) dan pelacakan (ByteTrack). Aplikasi ini menggunakan profil pergerakan kendaraan referensi untuk mengatasi masalah distorsi perspektif. Kecepatan dihitung menggunakan *Dynamic Depth-Scaling* sehingga hasilnya konsisten dari jauh maupun dekat kamera.
-
 ## File Presentasi, Video Ground Truth dan Laporan ada di Link Berikut  https://s.id/ck8IU
+
+Aplikasi ini adalah sistem estimasi kecepatan kendaraan berbasis video menggunakan deteksi objek (YOLO) dan pelacakan (ByteTrack). Aplikasi ini menggunakan profil pergerakan kendaraan referensi untuk mengatasi masalah distorsi perspektif. Kecepatan dihitung menggunakan *Dynamic Depth-Scaling* sehingga hasilnya konsisten dari jauh maupun dekat kamera.
 
 ## 📋 Prasyarat (Prerequisites)
 
@@ -55,11 +55,11 @@ Aplikasi ini dibangun menggunakan antarmuka grafis interaktif berbasis **Streaml
 
 1. **Upload Video**: Unggah file video (.mp4, .mov, atau .avi) yang berisi rekaman pergerakan kendaraan.
 2. **Kalibrasi Referensi Dinamis**:
-   - Pilih **satu kendaraan** di video yang terlihat bergerak secara stabil dari jarak jauh hingga dekat kamera dengan durasi waktu yang cukup **"Contoh Melakukan Croping mobil suzuki jimmy"** .
+   - Pilih **satu kendaraan** di video yang terlihat bergerak secara stabil dari jarak jauh hingga dekat kamera dengan durasi waktu yang cukup **"Contoh Melakukan Croping mobil suzuki jimmy"**.
    - Gunakan alat *drawing* (berbentuk kotak) yang ada di layar untuk menggambar *bounding box* (kotak) pada kendaraan tersebut.
    - Masukkan **Kecepatan Aktual** dari kendaraan referensi tersebut dalam satuan km/jam (misalnya: 60 km/jam).
 3. **Mulai Proses**: Klik tombol `▶ Mulai Proses`. Aplikasi akan:
    - Menjalankan pelacakan (tracking) menggunakan model YOLO.
    - Membangun model matematika *Depth-Scaling* berbasis pergerakan kendaraan referensi yang Anda pilih untuk mengkalibrasi jarak piksel terhadap jarak nyata.
    - Mengestimasi kecepatan seluruh kendaraan lain secara dinamis.
-4. **Hasil Estimasi**: Setelah proses selesai, Anda dapat memutar video hasil yang sudah dilengkapi anotasi (kotak pelacakan & kecepatan), melihat grafik statistik kecepatan, distribusi histogram, dan mengunduh data mentah riwayat kecepatan semua kendaraan dalam format CSV.
+4. **Hasil Estimasi**: Setelah proses selesai, Anda dapat memutar video hasil yang sudah dilengkapi anotasi (kotak pelacakan & kecepatan), melihat grafik statistik kecepatan, distribusi histogram, evaluasi MAE & RMSE, dan mengunduh data mentah riwayat kecepatan semua kendaraan dalam format CSV.

@@ -290,6 +290,7 @@ if st.session_state["video_uploaded"] and os.path.exists(INPUT_VIDEO):
                     st.session_state["all_records"] = all_records
                     st.session_state["calibrated"] = True
                     st.session_state["target_id"] = target_id
+                    st.session_state["real_speed"] = real_speed
 
         else:
             st.warning("Silakan gambar kotak (bounding box) pada kendaraan referensi terlebih dahulu.")
@@ -303,9 +304,27 @@ if st.session_state["video_uploaded"] and os.path.exists(INPUT_VIDEO):
         if not df.empty:
             avg_speed = df.groupby("id")["speed_kmh"].mean().reset_index()
             
+            target = st.session_state.get("target_id", None)
+            real_speed = st.session_state.get("real_speed", None)
+            
+            if target is not None and real_speed is not None:
+                st.markdown("#### Evaluasi Error Kendaraan Referensi")
+                ref_df = df[df["id"] == target].copy()
+                if not ref_df.empty:
+                    ref_df["abs_error"] = abs(ref_df["speed_kmh"] - real_speed)
+                    ref_df["sq_error"] = (ref_df["speed_kmh"] - real_speed) ** 2
+                    mae = ref_df["abs_error"].mean()
+                    rmse = np.sqrt(ref_df["sq_error"].mean())
+                    
+                    c1, c2 = st.columns(2)
+                    c1.metric("MAE (Mean Absolute Error)", f"{mae:.2f} km/h")
+                    c2.metric("RMSE (Root Mean Square Error)", f"{rmse:.2f} km/h")
+                    
+                    st.markdown("**Grafik Error Absolut (Selisih dengan Kecepatan Aktual)**")
+                    st.line_chart(ref_df.set_index("time_s")["abs_error"])
+
             st.markdown("#### Grafik Kecepatan Waktu-ke-Waktu")
             top_ids = avg_speed.nlargest(5, "speed_kmh")["id"].tolist()
-            target = st.session_state.get("target_id", None)
             if target is not None and target not in top_ids:
                 top_ids.append(target)
                 
